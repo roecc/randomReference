@@ -36,14 +36,16 @@
                 const randomImageFileName = files[randomIndex].replace('href="', '');
                 const randomImageURL = randomImageFileName; // Corrected URL
                 document.getElementById('portraitImage').src = randomImageURL;
-            } else {
+            } else if (files) {
+				console.error("below 0");
+			} else {
                 console.error('No image files found in the "portrait" folder.');
-            }
+			}
         }
 
-		document.getElementById('portraitImage').src = "./portrait/dude.jpg"
+		//document.getElementById('portraitImage').src = "./portrait/dude.jpg"
         // Load a random image when the page loads
-        //loadRandomImage();
+        loadRandomImage();
     </script>
 </body>
 </html>
