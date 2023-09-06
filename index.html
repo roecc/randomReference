@@ -25,19 +25,35 @@
             font-size: 14px;
             cursor: pointer;
         }
+		#folderSelector {
+            position: absolute;
+            top: 50px;
+            left: 10px;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 	<div class="imgbox">
 		<img class="center-fit" id="portraitImage" src="" alt="Random Portrait">
 	</div>
-	<button id="loadButton" onclick="loadRandomImage()">Load Random Image</button>
+	
+	<button id="loadButton" onclick="loadRandomImage()">Next</button>
+    <select id="folderSelector">
+        <option value="portrait">Portrait</option>
+        <option value="body">Body</option>
+        <option value="style">Style</option>
+    </select>
 
     <script>
+		const folderSelector = document.getElementById('folderSelector');
         // Function to load a random image from the 'portrait' folder
         async function loadRandomImage() {
-            const portraitFolder = './portrait/';
-            const response = await fetch(portraitFolder);
+			const selectedFolder = folderSelector.value;
+            const folderPath = `./${selectedFolder}/`;//'./portrait/';
+            const response = await fetch(folderPath);
             const text = await response.text();
             const files = text.match(/href="([^"]+\.(jpe?g|png|gif))/gi);
 
