@@ -33,6 +33,15 @@
             font-size: 14px;
             cursor: pointer;
         }
+
+		#setInterval {
+            position: absolute;
+            top: 90px;
+            left: 10px;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -46,6 +55,16 @@
         <option value="body">Body</option>
         <option value="style">Style</option>
         <option value="clothes">Clothes</option>
+    </select>
+	<select id="setInterval">
+        <option value="5">30s</option>
+        <option value="10">1min</option>
+        <option value="20">2min</option>
+        <option value="50">3min</option>
+        <option value="100">10min</option>
+        <option value="300">30min</option>
+        <option value="600">1hr</option>
+        <option value="1200">2hrs</option>
     </select>
 
     <script>
@@ -68,8 +87,35 @@
 			} else {
                 console.error('no folder');
 			}
+			setTimer();
         }
 
+		let timeoutId; // Variable to store the setTimeout ID
+		
+		// Function to call anotherFunc after a specified delay
+		function delayedFunction(delayInMinutes) {
+			const delayInMillis = delayInMinutes * 60 * 100; // Convert minutes to milliseconds
+			clearTimeout(timeoutId);
+			timeoutId = setTimeout(anotherFunc, delayInMillis);
+		}
+
+		// Example function to be called after the delay
+		function anotherFunc() {
+			loadRandomImage();
+		}
+
+		// Event listener for the select element change event
+		document.getElementById('setInterval').addEventListener('change', function () {
+			setTimer();
+		});
+
+		document.getElementById('loadButton').onclick(setTimer());
+
+		function setTimer ()
+		{
+			const selectedInterval = document.getElementById('setInterval').value;
+			delayedFunction(selectedInterval);
+		}
 		//document.getElementById('portraitImage').src = "./portrait/dude.jpg"
         // Load a random image when the page loads
         loadRandomImage();
